@@ -6,34 +6,28 @@ namespace NNPTPZ1
 
     namespace Mathematics
     {
-        public class Poly
+        public class Polynomial
         {
-            /// <summary>
-            /// Coe
-            /// </summary>
-            public List<Cplx> Coe { get; set; }
+            public List<ComplexNumber> Coefficients { get; set; }
 
-            /// <summary>
-            /// Constructor
-            /// </summary>
-            public Poly() => Coe = new List<Cplx>();
+            public Polynomial() => Coefficients = new List<ComplexNumber>();
 
-            public void Add(Cplx coe) =>
-                Coe.Add(coe);
+            public void Add(ComplexNumber coef) =>
+                Coefficients.Add(coef);
 
             /// <summary>
             /// Derives this polynomial and creates new one
             /// </summary>
             /// <returns>Derivated polynomial</returns>
-            public Poly Derive()
+            public Polynomial Derive()
             {
-                Poly p = new Poly();
-                for (int q = 1; q < Coe.Count; q++)
+                Polynomial derivative = new Polynomial();
+                for (int exponent = 1; exponent < Coefficients.Count; exponent++)
                 {
-                    p.Coe.Add(Coe[q].Multiply(new Cplx() { Real = q }));
+                    derivative.Coefficients.Add(Coefficients[exponent].Multiply(new ComplexNumber() { Real = exponent }));
                 }
 
-                return p;
+                return derivative;
             }
 
             /// <summary>
@@ -41,54 +35,51 @@ namespace NNPTPZ1
             /// </summary>
             /// <param name="x">point of evaluation</param>
             /// <returns>y</returns>
-            public Cplx Eval(double x)
+            public ComplexNumber Eval(double x)
             {
-                return Eval(new Cplx { Real = x, Imaginary = 0 });
+                return Eval(new ComplexNumber { Real = x, Imaginary = 0 });
             }
+
             /// <summary>
             /// Evaluates polynomial at given point
             /// </summary>
             /// <param name="x">point of evaluation</param>
             /// <returns>y</returns>
-            public Cplx Eval(Cplx x)
+            public ComplexNumber Eval(ComplexNumber x)
             {
-                Cplx s = Cplx.Zero;
-                for (int i = 0; i < Coe.Count; i++)
+                ComplexNumber sum = ComplexNumber.Zero;
+                for (int i = 0; i < Coefficients.Count; i++)
                 {
-                    Cplx coef = Coe[i];
-                    Cplx bx = x;
+                    ComplexNumber coef = Coefficients[i];
+                    ComplexNumber xPower = x;
                     int power = i;
 
                     if (i > 0)
                     {
                         for (int j = 0; j < power - 1; j++)
-                            bx = bx.Multiply(x);
+                            xPower = xPower.Multiply(x);
 
-                        coef = coef.Multiply(bx);
+                        coef = coef.Multiply(xPower);
                     }
 
-                    s = s.Add(coef);
+                    sum = sum.Add(coef);
                 }
 
-                return s;
+                return sum;
             }
 
-            /// <summary>
-            /// ToString
-            /// </summary>
-            /// <returns>String repr of polynomial</returns>
             public override string ToString()
             {
                 var result = new StringBuilder();
 
-                for (int exponent = 0; exponent < Coe.Count; exponent++)
+                for (int exponent = 0; exponent < Coefficients.Count; exponent++)
                 {
                     if (exponent > 0)
                     {
                         result.Append(" + ");
                     }
 
-                    result.Append(Coe[exponent]);
+                    result.Append(Coefficients[exponent]);
                     result.Append('x', exponent);
                 }
 

@@ -8,16 +8,16 @@ namespace NNPTPZ1
         private const int RequiredSmallStepCount = 30;
         private const double LargeStepSquaredThreshold = 0.5;
 
-        private readonly Poly polynomial;
-        private readonly Poly derivative;
+        private readonly Polynomial polynomial;
+        private readonly Polynomial derivative;
 
-        public NewtonSolver(Poly polynomial, Poly derivative)
+        public NewtonSolver(Polynomial polynomial, Polynomial derivative)
         {
             this.polynomial = polynomial;
             this.derivative = derivative;
         }
 
-        public NewtonResult Solve(Cplx point)
+        public NewtonResult Solve(ComplexNumber point)
         {
             float iterationCount = 0;
 
@@ -25,7 +25,7 @@ namespace NNPTPZ1
                  smallStepCount < RequiredSmallStepCount;
                  smallStepCount++)
             {
-                Cplx step = polynomial.Eval(point)
+                ComplexNumber step = polynomial.Eval(point)
                     .Divide(derivative.Eval(point));
 
                 point = point.Subtract(step);
@@ -41,7 +41,7 @@ namespace NNPTPZ1
             return new NewtonResult(point, iterationCount);
         }
 
-        private static bool IsLargeStep(Cplx step)
+        private static bool IsLargeStep(ComplexNumber step)
         {
             return Math.Pow(step.Real, 2) + Math.Pow(step.Imaginary, 2)
                 >= LargeStepSquaredThreshold;

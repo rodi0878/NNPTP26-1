@@ -4,10 +4,10 @@ namespace NNPTPZ1
 {
     internal sealed class NewtonResult
     {
-        public Cplx Point { get; }
+        public ComplexNumber Point { get; }
         public float IterationCount { get; }
 
-        public NewtonResult(Cplx point, float iterationCount)
+        public NewtonResult(ComplexNumber point, float iterationCount)
         {
             Point = point;
             IterationCount = iterationCount;

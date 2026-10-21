@@ -22,7 +22,7 @@ namespace NNPTPZ1
 
         private readonly RenderOptions options;
         private readonly NewtonSolver solver;
-        private readonly List<Cplx> roots = new List<Cplx>();
+        private readonly List<ComplexNumber> roots = new List<ComplexNumber>();
 
         public NewtonFractalRenderer(
             RenderOptions options,
@@ -71,7 +71,7 @@ namespace NNPTPZ1
                 (int)result.IterationCount * DarkeningPerIteration);
         }
 
-        private Cplx GetInitialPoint(int row, int column)
+        private ComplexNumber GetInitialPoint(int row, int column)
         {
             double xStep = (options.XMax - options.XMin) / options.Width;
             double yStep = (options.YMax - options.YMin) / options.Height;
@@ -79,14 +79,14 @@ namespace NNPTPZ1
             double real = options.XMin + column * xStep;
             float imaginary = (float)(options.YMin + row * yStep);
 
-            return new Cplx
+            return new ComplexNumber
             {
                 Real = real == 0 ? ZeroRealOffset : real,
                 Imaginary = imaginary == 0 ? ZeroImaginaryOffset : imaginary
             };
         }
 
-        private int GetOrAddRootIndex(Cplx point)
+        private int GetOrAddRootIndex(ComplexNumber point)
         {
             int rootIndex = FindLastMatchingRoot(point);
 
@@ -101,7 +101,7 @@ namespace NNPTPZ1
             return roots.Count;
         }
 
-        private int FindLastMatchingRoot(Cplx point)
+        private int FindLastMatchingRoot(ComplexNumber point)
         {
             int matchingIndex = -1;
 
@@ -116,7 +116,7 @@ namespace NNPTPZ1
             return matchingIndex;
         }
 
-        private static bool IsSameRoot(Cplx first, Cplx second)
+        private static bool IsSameRoot(ComplexNumber first, ComplexNumber second)
         {
             double squaredDistance =
                 Math.Pow(first.Real - second.Real, 2)

@@ -21,11 +21,11 @@ namespace NNPTPZ1Tests
         "unused.png"
     });
 
-            var polynomial = new Poly();
-            polynomial.Add(new Cplx { Real = 1 });
-            polynomial.Add(Cplx.Zero);
-            polynomial.Add(Cplx.Zero);
-            polynomial.Add(new Cplx { Real = 1 });
+            var polynomial = new Polynomial();
+            polynomial.Add(new ComplexNumber { Real = 1 });
+            polynomial.Add(ComplexNumber.Zero);
+            polynomial.Add(ComplexNumber.Zero);
+            polynomial.Add(new ComplexNumber { Real = 1 });
 
             var solver = new NewtonSolver(
                 polynomial,
@@ -43,9 +43,9 @@ namespace NNPTPZ1Tests
         [TestMethod]
         public void Multiply_ReturnsExpectedComplexNumber()
         {
-            var first = new Cplx { Real = 1, Imaginary = 2 };
-            var second = new Cplx { Real = 3, Imaginary = 4 };
-            var expected = new Cplx { Real = -5, Imaginary = 10 };
+            var first = new ComplexNumber { Real = 1, Imaginary = 2 };
+            var second = new ComplexNumber { Real = 3, Imaginary = 4 };
+            var expected = new ComplexNumber { Real = -5, Imaginary = 10 };
 
             Assert.AreEqual(expected, first.Multiply(second));
         }
@@ -53,9 +53,9 @@ namespace NNPTPZ1Tests
         [TestMethod]
         public void Subtract_ReturnsExpectedComplexNumber()
         {
-            var first = new Cplx { Real = 1, Imaginary = 2 };
-            var second = new Cplx { Real = 3, Imaginary = 4 };
-            var expected = new Cplx { Real = -2, Imaginary = -2 };
+            var first = new ComplexNumber { Real = 1, Imaginary = 2 };
+            var second = new ComplexNumber { Real = 3, Imaginary = 4 };
+            var expected = new ComplexNumber { Real = -2, Imaginary = -2 };
 
             Assert.AreEqual(expected, first.Subtract(second));
         }
@@ -63,12 +63,12 @@ namespace NNPTPZ1Tests
         [TestMethod]
         public void Derive_ReturnsExpectedPolynomial()
         {
-            var polynomial = new Poly();
-            polynomial.Add(new Cplx { Real = 1 });
-            polynomial.Add(new Cplx { Real = 2 });
-            polynomial.Add(new Cplx { Real = 3 });
+            var polynomial = new Polynomial();
+            polynomial.Add(new ComplexNumber { Real = 1 });
+            polynomial.Add(new ComplexNumber { Real = 2 });
+            polynomial.Add(new ComplexNumber { Real = 3 });
 
-            Poly derivative = polynomial.Derive();
+            Polynomial derivative = polynomial.Derive();
 
             Assert.AreEqual(
                 "(2 + 0i) + (6 + 0i)x",
@@ -78,23 +78,23 @@ namespace NNPTPZ1Tests
         [TestMethod]
         public void Derive_ConstantPolynomialHasNoCoefficients()
         {
-            var polynomial = new Poly();
-            polynomial.Add(new Cplx { Real = 7 });
+            var polynomial = new Polynomial();
+            polynomial.Add(new ComplexNumber { Real = 7 });
 
-            Assert.AreEqual(0, polynomial.Derive().Coe.Count);
+            Assert.AreEqual(0, polynomial.Derive().Coefficients.Count);
         }
 
         [TestMethod]
         public void Eval_ImaginaryPointReturnsZeroForOnePlusXSquared()
         {
-            var polynomial = new Poly();
-            polynomial.Add(new Cplx { Real = 1 });
-            polynomial.Add(Cplx.Zero);
-            polynomial.Add(new Cplx { Real = 1 });
+            var polynomial = new Polynomial();
+            polynomial.Add(new ComplexNumber { Real = 1 });
+            polynomial.Add(ComplexNumber.Zero);
+            polynomial.Add(new ComplexNumber { Real = 1 });
 
-            Cplx actual = polynomial.Eval(new Cplx { Imaginary = 1 });
+            ComplexNumber actual = polynomial.Eval(new ComplexNumber { Imaginary = 1 });
 
-            Assert.AreEqual(Cplx.Zero, actual);
+            Assert.AreEqual(ComplexNumber.Zero, actual);
         }
     }
 }

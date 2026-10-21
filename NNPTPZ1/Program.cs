@@ -13,8 +13,8 @@ namespace NNPTPZ1
         static void Main(string[] args)
         {
             RenderOptions options = RenderOptions.Parse(args);
-            Poly polynomial = CreatePolynomial();
-            Poly derivative = polynomial.Derive();
+            Polynomial polynomial = CreatePolynomial();
+            Polynomial derivative = polynomial.Derive();
 
             Console.WriteLine(polynomial);
             Console.WriteLine(derivative);
@@ -28,14 +28,14 @@ namespace NNPTPZ1
             }
         }
 
-        private static Poly CreatePolynomial()
+        private static Polynomial CreatePolynomial()
         {
-            Poly polynomial = new Poly();
+            Polynomial polynomial = new Polynomial();
 
-            polynomial.Coe.Add(new Cplx() { Real = 1 });
-            polynomial.Coe.Add(Cplx.Zero);
-            polynomial.Coe.Add(Cplx.Zero);
-            polynomial.Coe.Add(new Cplx() { Real = 1 });
+            polynomial.Coefficients.Add(new ComplexNumber() { Real = 1 });
+            polynomial.Coefficients.Add(ComplexNumber.Zero);
+            polynomial.Coefficients.Add(ComplexNumber.Zero);
+            polynomial.Coefficients.Add(new ComplexNumber() { Real = 1 });
 
             return polynomial;
         }

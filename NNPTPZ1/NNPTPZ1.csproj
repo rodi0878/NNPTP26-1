@@ -44,11 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Cplx.cs" />
+    <Compile Include="ComplexNumber.cs" />
     <Compile Include="NewtonFractalRenderer.cs" />
     <Compile Include="NewtonResult.cs" />
     <Compile Include="NewtonSolver.cs" />
-    <Compile Include="Poly.cs" />
+    <Compile Include="Polynomial.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RenderOptions.cs" />
