@@ -33,7 +33,9 @@ msbuild.log
 msbuild.err
 msbuild.wrn
 
+# TestResults and artifacts
 TestResults/
+*.png
 
 # Visual Studio 2015
 .vs/
