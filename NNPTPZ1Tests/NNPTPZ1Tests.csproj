@@ -57,6 +57,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CplxTests.cs" />
+    <Compile Include="NewtonRootFinderTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

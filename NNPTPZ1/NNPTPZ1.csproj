@@ -44,7 +44,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FractalPainter.cs" />
+    <Compile Include="FractalParameters.cs" />
     <Compile Include="Mathematics\Cplx.cs" />
+    <Compile Include="Mathematics\NewtonRootFinder.cs" />
+    <Compile Include="Mathematics\NewtonRootResult.cs" />
     <Compile Include="Mathematics\Poly.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
