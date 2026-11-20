@@ -5,9 +5,6 @@ namespace NNPTPZ1.Mathematics.Tests
     [TestClass]
     public class PolynomialTests
     {
-        /// <summary>
-        /// Creates polynomial 1 + x^2.
-        /// </summary>
         private static Polynomial CreateOnePlusXSquared()
         {
             Polynomial polynomial = new Polynomial();
@@ -39,7 +36,6 @@ namespace NNPTPZ1.Mathematics.Tests
         [TestMethod]
         public void Derive_ReturnsDerivative()
         {
-            // (1 + x^3)' = 3x^2
             Polynomial polynomial = new Polynomial();
             polynomial.Add(new ComplexNumber(1, 0));
             polynomial.Add(ComplexNumber.Zero);

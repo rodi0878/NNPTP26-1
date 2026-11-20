@@ -2,9 +2,6 @@ using System;
 
 namespace NNPTPZ1
 {
-    /// <summary>
-    /// Image size, rendered area of the complex plane and output path.
-    /// </summary>
     public class FractalSettings
     {
         private const int RequiredArgumentCount = 6;

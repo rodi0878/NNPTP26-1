@@ -2,9 +2,6 @@ using System;
 
 namespace NNPTPZ1.Mathematics
 {
-    /// <summary>
-    /// Complex number with basic arithmetic operations.
-    /// </summary>
     public class ComplexNumber
     {
         public static readonly ComplexNumber Zero = new ComplexNumber(0, 0);
@@ -34,7 +31,6 @@ namespace NNPTPZ1.Mathematics
 
         public ComplexNumber Multiply(ComplexNumber other)
         {
-            // (a + bi)(c + di) = (ac - bd) + (ad + bc)i
             return new ComplexNumber(
                 Real * other.Real - Imaginary * other.Imaginary,
                 Real * other.Imaginary + Imaginary * other.Real);
@@ -42,7 +38,6 @@ namespace NNPTPZ1.Mathematics
 
         public ComplexNumber Divide(ComplexNumber other)
         {
-            // (a + bi) / (c + di) = ((a + bi)(c - di)) / (c^2 + d^2)
             ComplexNumber numerator = Multiply(other.Conjugate());
             double denominator = other.Real * other.Real + other.Imaginary * other.Imaginary;
 

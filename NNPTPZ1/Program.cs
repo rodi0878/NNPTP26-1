@@ -4,10 +4,6 @@ using NNPTPZ1.Mathematics;
 
 namespace NNPTPZ1
 {
-    /// <summary>
-    /// This program produces Newton fractals.
-    /// See more at: https://en.wikipedia.org/wiki/Newton_fractal
-    /// </summary>
     class Program
     {
         static void Main(string[] args)
@@ -35,9 +31,6 @@ namespace NNPTPZ1
             }
         }
 
-        /// <summary>
-        /// Creates polynomial 1 + x^3.
-        /// </summary>
         private static Polynomial CreatePolynomial()
         {
             Polynomial polynomial = new Polynomial();

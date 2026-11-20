@@ -3,9 +3,6 @@ using System.Text;
 
 namespace NNPTPZ1.Mathematics
 {
-    /// <summary>
-    /// Polynomial with complex coefficients. Coefficients[i] belongs to x^i.
-    /// </summary>
     public class Polynomial
     {
         public List<ComplexNumber> Coefficients { get; set; }
@@ -20,10 +17,6 @@ namespace NNPTPZ1.Mathematics
             Coefficients.Add(coefficient);
         }
 
-        /// <summary>
-        /// Creates the derivative of this polynomial.
-        /// </summary>
-        /// <returns>Derived polynomial</returns>
         public Polynomial Derive()
         {
             Polynomial derivative = new Polynomial();
@@ -35,17 +28,11 @@ namespace NNPTPZ1.Mathematics
             return derivative;
         }
 
-        /// <summary>
-        /// Evaluates the polynomial at the given real point.
-        /// </summary>
         public ComplexNumber Evaluate(double x)
         {
             return Evaluate(new ComplexNumber(x, 0));
         }
 
-        /// <summary>
-        /// Evaluates the polynomial at the given complex point.
-        /// </summary>
         public ComplexNumber Evaluate(ComplexNumber x)
         {
             ComplexNumber sum = ComplexNumber.Zero;

@@ -5,10 +5,6 @@ using NNPTPZ1.Mathematics;
 
 namespace NNPTPZ1
 {
-    /// <summary>
-    /// Renders a Newton fractal of the given polynomial.
-    /// See more at: https://en.wikipedia.org/wiki/Newton_fractal
-    /// </summary>
     public class NewtonFractalRenderer
     {
         private const int ConvergedStepsRequired = 30;
@@ -58,7 +54,6 @@ namespace NNPTPZ1
                 settings.XMin + pixelX * settings.XStep,
                 settings.YMin + pixelY * settings.YStep);
 
-            // avoid starting exactly on an axis
             if (point.Real == 0)
             {
                 point.Real = ZeroReplacement;
@@ -71,9 +66,6 @@ namespace NNPTPZ1
             return point;
         }
 
-        /// <summary>
-        /// Finds a root of the polynomial using Newton's iteration.
-        /// </summary>
         private ComplexNumber FindRoot(ComplexNumber point, out int iterations)
         {
             iterations = 0;
@@ -83,7 +75,6 @@ namespace NNPTPZ1
                 ComplexNumber step = polynomial.Evaluate(point).Divide(derivative.Evaluate(point));
                 point = point.Subtract(step);
 
-                // written as !(>=) on purpose so that a NaN step also counts as converged
                 bool isLargeStep = SquaredDistance(step, ComplexNumber.Zero) >= LargeStepThreshold;
                 if (!isLargeStep)
                 {
@@ -95,10 +86,6 @@ namespace NNPTPZ1
             return point;
         }
 
-        /// <summary>
-        /// Returns the index of an already known root close to the given point,
-        /// or registers the point as a new root.
-        /// </summary>
         private int GetRootIndex(ComplexNumber point)
         {
             int index = 0;
