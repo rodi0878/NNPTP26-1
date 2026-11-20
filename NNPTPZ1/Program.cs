@@ -33,13 +33,13 @@ namespace NNPTPZ1
             double xstep = (xmax - xmin) / intargs[0];
             double ystep = (ymax - ymin) / intargs[1];
 
-            List<Cplx> koreny = new List<Cplx>();
-            Poly p = new Poly();
-            p.Coe.Add(new Cplx() { Re = 1 });
-            p.Coe.Add(Cplx.Zero);
-            p.Coe.Add(Cplx.Zero);
-            p.Coe.Add(new Cplx() { Re = 1 });
-            Poly pd = p.Derive();
+            List<ComplexNumber> koreny = new List<ComplexNumber>();
+            Polynomial p = new Polynomial();
+            p.Coefficients.Add(new ComplexNumber() { Real = 1 });
+            p.Coefficients.Add(ComplexNumber.Zero);
+            p.Coefficients.Add(ComplexNumber.Zero);
+            p.Coefficients.Add(new ComplexNumber() { Real = 1 });
+            Polynomial pd = p.Derive();
 
             Console.WriteLine(p);
             Console.WriteLine(pd);
@@ -58,25 +58,25 @@ namespace NNPTPZ1
                     double y = ymin + i * ystep;
                     double x = xmin + j * xstep;
 
-                    Cplx ox = new Cplx()
+                    ComplexNumber ox = new ComplexNumber()
                     {
-                        Re = x,
-                        Imaginari = (float)(y)
+                        Real = x,
+                        Imaginary = (float)(y)
                     };
 
-                    if (ox.Re == 0)
-                        ox.Re = 0.0001;
-                    if (ox.Imaginari == 0)
-                        ox.Imaginari = 0.0001f;
+                    if (ox.Real == 0)
+                        ox.Real = 0.0001;
+                    if (ox.Imaginary == 0)
+                        ox.Imaginary = 0.0001f;
 
                     // find solution of equation using newton's iteration
                     float it = 0;
                     for (int q = 0; q< 30; q++)
                     {
-                        var diff = p.Eval(ox).Divide(pd.Eval(ox));
+                        var diff = p.Evaluate(ox).Divide(pd.Evaluate(ox));
                         ox = ox.Subtract(diff);
 
-                        if (Math.Pow(diff.Re, 2) + Math.Pow(diff.Imaginari, 2) >= 0.5)
+                        if (Math.Pow(diff.Real, 2) + Math.Pow(diff.Imaginary, 2) >= 0.5)
                         {
                             q--;
                         }
@@ -88,7 +88,7 @@ namespace NNPTPZ1
                     var id = 0;
                     for (int w = 0; w <koreny.Count;w++)
                     {
-                        if (Math.Pow(ox.Re- koreny[w].Re, 2) + Math.Pow(ox.Imaginari - koreny[w].Imaginari, 2) <= 0.01)
+                        if (Math.Pow(ox.Real- koreny[w].Real, 2) + Math.Pow(ox.Imaginary - koreny[w].Imaginary, 2) <= 0.01)
                         {
                             known = true;
                             id = w;
