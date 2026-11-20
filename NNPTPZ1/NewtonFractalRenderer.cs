@@ -37,15 +37,15 @@ namespace NNPTPZ1
         {
             Bitmap bitmap = new Bitmap(settings.Width, settings.Height);
 
-            for (int i = 0; i < settings.Width; i++)
+            for (int pixelY = 0; pixelY < settings.Height; pixelY++)
             {
-                for (int j = 0; j < settings.Height; j++)
+                for (int pixelX = 0; pixelX < settings.Width; pixelX++)
                 {
-                    ComplexNumber startPoint = GetWorldCoordinates(settings, j, i);
+                    ComplexNumber startPoint = GetWorldCoordinates(settings, pixelX, pixelY);
                     ComplexNumber root = FindRoot(startPoint, out int iterations);
                     int rootIndex = GetRootIndex(root);
 
-                    bitmap.SetPixel(j, i, GetPixelColor(rootIndex, iterations));
+                    bitmap.SetPixel(pixelX, pixelY, GetPixelColor(rootIndex, iterations));
                 }
             }
 
