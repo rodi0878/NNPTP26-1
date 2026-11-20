@@ -38,8 +38,12 @@ TestResults/
 # Visual Studio 2015
 .vs/
 
-INPTPZ1/bin/
+NNPTPZ1/bin/
+NNPTPZ1/obj/
 INPTPZ1/obj/
-INPTPZ1Tests/bin/
+NNPTPZ1Tests/bin/
+NNPTPZ1Tests/obj/
+.vs/
+*.png
 INPTPZ1Tests/obj/
 packages/
