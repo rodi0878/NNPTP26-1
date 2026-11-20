@@ -10,13 +10,13 @@ namespace NNPTPZ1.Mathematics
         public static readonly ComplexNumber Zero = new ComplexNumber(0, 0);
 
         public double Real { get; set; }
-        public float Imaginary { get; set; }
+        public double Imaginary { get; set; }
 
         public ComplexNumber()
         {
         }
 
-        public ComplexNumber(double real, float imaginary)
+        public ComplexNumber(double real, double imaginary)
         {
             Real = real;
             Imaginary = imaginary;
@@ -37,7 +37,7 @@ namespace NNPTPZ1.Mathematics
             // (a + bi)(c + di) = (ac - bd) + (ad + bc)i
             return new ComplexNumber(
                 Real * other.Real - Imaginary * other.Imaginary,
-                (float)(Real * other.Imaginary + Imaginary * other.Real));
+                Real * other.Imaginary + Imaginary * other.Real);
         }
 
         public ComplexNumber Divide(ComplexNumber other)
@@ -48,7 +48,7 @@ namespace NNPTPZ1.Mathematics
 
             return new ComplexNumber(
                 numerator.Real / denominator,
-                (float)(numerator.Imaginary / denominator));
+                numerator.Imaginary / denominator);
         }
 
         public ComplexNumber Conjugate()

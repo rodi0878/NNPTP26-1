@@ -56,7 +56,7 @@ namespace NNPTPZ1
         {
             ComplexNumber point = new ComplexNumber(
                 settings.XMin + pixelX * settings.XStep,
-                (float)(settings.YMin + pixelY * settings.YStep));
+                settings.YMin + pixelY * settings.YStep);
 
             // avoid starting exactly on an axis
             if (point.Real == 0)
@@ -65,7 +65,7 @@ namespace NNPTPZ1
             }
             if (point.Imaginary == 0)
             {
-                point.Imaginary = (float)ZeroReplacement;
+                point.Imaginary = ZeroReplacement;
             }
 
             return point;
