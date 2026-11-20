@@ -115,7 +115,7 @@ namespace NNPTPZ1
             if (!known)
             {
                 roots.Add(point);
-                index = roots.Count;
+                index = roots.Count - 1;
             }
 
             return index;
