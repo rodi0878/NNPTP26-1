@@ -3,7 +3,7 @@ using System;
 namespace NNPTPZ1.Mathematics
 {
     /// <summary>
-    /// Immutable-style complex number with basic arithmetic operations.
+    /// Complex number with basic arithmetic operations.
     /// </summary>
     public class ComplexNumber
     {
@@ -63,7 +63,7 @@ namespace NNPTPZ1.Mathematics
 
         public double GetAngleInDegrees()
         {
-            return Math.Atan(Imaginary / Real);
+            return Math.Atan2(Imaginary, Real) * 180.0 / Math.PI;
         }
 
         public override bool Equals(object obj)
@@ -72,7 +72,15 @@ namespace NNPTPZ1.Mathematics
             {
                 return other.Real == Real && other.Imaginary == Imaginary;
             }
-            return base.Equals(obj);
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                return (Real.GetHashCode() * 397) ^ Imaginary.GetHashCode();
+            }
         }
 
         public override string ToString()
