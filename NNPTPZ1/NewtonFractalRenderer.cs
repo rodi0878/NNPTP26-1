@@ -1,0 +1,145 @@
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using NNPTPZ1.Mathematics;
+
+namespace NNPTPZ1
+{
+    /// <summary>
+    /// Renders a Newton fractal of the given polynomial.
+    /// See more at: https://en.wikipedia.org/wiki/Newton_fractal
+    /// </summary>
+    public class NewtonFractalRenderer
+    {
+        private const int ConvergedStepsRequired = 30;
+        private const double LargeStepThreshold = 0.5;
+        private const double RootTolerance = 0.01;
+        private const double ZeroReplacement = 0.0001;
+        private const int DarkeningPerIteration = 2;
+
+        private static readonly Color[] RootColors =
+        {
+            Color.Red, Color.Blue, Color.Green, Color.Yellow, Color.Orange,
+            Color.Fuchsia, Color.Gold, Color.Cyan, Color.Magenta
+        };
+
+        private readonly Polynomial polynomial;
+        private readonly Polynomial derivative;
+        private readonly List<ComplexNumber> roots = new List<ComplexNumber>();
+
+        public NewtonFractalRenderer(Polynomial polynomial)
+        {
+            this.polynomial = polynomial;
+            derivative = polynomial.Derive();
+        }
+
+        public Bitmap Render(FractalSettings settings)
+        {
+            Bitmap bitmap = new Bitmap(settings.Width, settings.Height);
+
+            for (int i = 0; i < settings.Width; i++)
+            {
+                for (int j = 0; j < settings.Height; j++)
+                {
+                    ComplexNumber startPoint = GetWorldCoordinates(settings, j, i);
+                    ComplexNumber root = FindRoot(startPoint, out int iterations);
+                    int rootIndex = GetRootIndex(root);
+
+                    bitmap.SetPixel(j, i, GetPixelColor(rootIndex, iterations));
+                }
+            }
+
+            return bitmap;
+        }
+
+        private static ComplexNumber GetWorldCoordinates(FractalSettings settings, int pixelX, int pixelY)
+        {
+            ComplexNumber point = new ComplexNumber(
+                settings.XMin + pixelX * settings.XStep,
+                (float)(settings.YMin + pixelY * settings.YStep));
+
+            // avoid starting exactly on an axis
+            if (point.Real == 0)
+            {
+                point.Real = ZeroReplacement;
+            }
+            if (point.Imaginary == 0)
+            {
+                point.Imaginary = (float)ZeroReplacement;
+            }
+
+            return point;
+        }
+
+        /// <summary>
+        /// Finds a root of the polynomial using Newton's iteration.
+        /// </summary>
+        private ComplexNumber FindRoot(ComplexNumber point, out int iterations)
+        {
+            iterations = 0;
+            int convergedSteps = 0;
+            while (convergedSteps < ConvergedStepsRequired)
+            {
+                ComplexNumber step = polynomial.Evaluate(point).Divide(derivative.Evaluate(point));
+                point = point.Subtract(step);
+
+                // written as !(>=) on purpose so that a NaN step also counts as converged
+                bool isLargeStep = SquaredDistance(step, ComplexNumber.Zero) >= LargeStepThreshold;
+                if (!isLargeStep)
+                {
+                    convergedSteps++;
+                }
+                iterations++;
+            }
+
+            return point;
+        }
+
+        /// <summary>
+        /// Returns the index of an already known root close to the given point,
+        /// or registers the point as a new root.
+        /// </summary>
+        private int GetRootIndex(ComplexNumber point)
+        {
+            int index = 0;
+            bool known = false;
+            for (int i = 0; i < roots.Count; i++)
+            {
+                if (SquaredDistance(point, roots[i]) <= RootTolerance)
+                {
+                    known = true;
+                    index = i;
+                }
+            }
+
+            if (!known)
+            {
+                roots.Add(point);
+                index = roots.Count;
+            }
+
+            return index;
+        }
+
+        private static Color GetPixelColor(int rootIndex, int iterations)
+        {
+            Color baseColor = RootColors[rootIndex % RootColors.Length];
+            int darkening = iterations * DarkeningPerIteration;
+
+            return Color.FromArgb(
+                ClampColorComponent(baseColor.R - darkening),
+                ClampColorComponent(baseColor.G - darkening),
+                ClampColorComponent(baseColor.B - darkening));
+        }
+
+        private static int ClampColorComponent(int value)
+        {
+            return Math.Min(Math.Max(0, value), 255);
+        }
+
+        private static double SquaredDistance(ComplexNumber a, ComplexNumber b)
+        {
+            return Math.Pow(a.Real - b.Real, 2) + Math.Pow(a.Imaginary - b.Imaginary, 2);
+        }
+    }
+}
